@@ -5,6 +5,7 @@ type ImposterElement struct {
 	Port     int           `json:"port,omitempty"`
 	Name     string        `json:"name,omitempty"`
 	Mode     string        `json:"mode,omitempty"`
+	Record   bool          `json:"recordRequests,omitempty"`
 	Stubs    []StubElement `json:"stubs,omitempty"`
 }
 
@@ -40,6 +41,12 @@ func (builder *ImposterBuilder) Mode(mode string) *ImposterBuilder {
 	return builder
 }
 
+func (builder *ImposterBuilder) Record(record bool) *ImposterBuilder {
+	builder.record = record
+
+	return builder
+}
+
 func (builder *ImposterBuilder) Stubs(stubs ...StubElement) *ImposterBuilder {
 	builder.stubs = stubs
 
@@ -52,6 +59,7 @@ func (builder *ImposterBuilder) Build() ImposterElement {
 		Port:     builder.port,
 		Name:     builder.name,
 		Mode:     builder.mode,
+		Record:   builder.record,
 		Stubs:    builder.stubs,
 	}
 }
